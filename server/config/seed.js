@@ -35,7 +35,6 @@ User.find({}).remove(function() {
     provider: 'local',
     name: 'Test User',
     email: 'test@test.com',
-    avatar: '/api/uploads/54582c2825d10300000a22c3',
     password: 'test'
   }, {
     provider: 'local',

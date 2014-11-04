@@ -26,13 +26,6 @@ exports.create = function(req, res, next) {
     if(err) { return handleError(res, err); }
     return res.json(201, upload);
   });
-  var data = _.pick(req.body, 'type')
-    , uploadPath = path.normalize(cfg.data + '/uploads')
-    , file = req.files.file;
-
-  console.log(file.name); //original name (ie: sunset.png)
-  console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
-  console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
 };
 
 // Updates an existing upload in the DB.
