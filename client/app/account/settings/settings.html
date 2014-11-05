@@ -22,11 +22,11 @@
           <label>New Password</label>
 
           <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword"
-                 ng-minlength="8"
+                 ng-minlength="3"
                  required/>
           <p class="help-block"
              ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
-            Password must be at least 8 characters.
+            Password must be at least 3 characters.
           </p>
         </div>
 

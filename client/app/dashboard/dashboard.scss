@@ -1,0 +1,39 @@
+h1, h2 {
+  font-family: 'Montserrat';
+}
+
+#user {
+  text-align: center;
+  background: url('/assets/images/lghtmesh.png') repeat;
+  padding: 22px 0;
+}
+
+#contacts {
+  .contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    span {
+      width: 8px;
+      height: 8px;
+      margin-left: 4px;
+      background: #ccc;
+      border-radius: 100%;
+      &.online {
+        background: green;
+      }
+    }
+  }
+}
+
+#objectives {
+  margin: 10px 20px;
+  h1 {
+    display: inline-block;
+  }
+  table {
+    thead {
+      font-weight: 700;
+    }
+  }
+}

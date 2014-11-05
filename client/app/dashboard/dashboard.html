@@ -1,5 +1,43 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="col-md-12">
-This is the dashboard view.
+<div class="container">
+
+  <figure id="user" class="col-md-2">
+    <h3>{{ me.name }}</h3>
+    <p>Telluride, CO</p>
+    </h5>Leader</h5>
+  </figure>
+
+  <figure id="contacts" class="col-md-8">
+    <h2>Contacts</h2>
+    <div class="contact" ng-repeat="contact in contacts">
+      <p>{{ contact.user }}</p>
+      <span ng-class="{online: contact.online}"></span>
+    </div>
+  </figure>
+
+</div>
+
+
+<div class="container">
+  
+  <section id="objectives" class="col-md-10">
+    <h1>Objectives</h1>
+    <button type="button" class="btn btn-default btn-xs">broadcast new</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Contributors</th>
+        </tr>
+      </thead>
+      <tr ng-repeat="objective in objectives">
+        <td>{{ objective.name }}</td>
+        <td>{{ objective.description }}</td>
+        <td>{{ objective.contributors }}</td>
+      </tr>
+    </table>
+  </section>
+
 </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('SettingsCtrl', ['$scope', '$upload', function ($scope, $upload, User, Auth) {
+  .controller('SettingsCtrl', function ($scope, User, Auth) {
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
@@ -18,4 +18,4 @@ angular.module('meshApp')
         });
       }
 		};
-  }]);
+  });
