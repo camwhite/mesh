@@ -37,3 +37,39 @@ h1, h2 {
     }
   }
 }
+
+#broadcast {
+  &.ng-hide-remove {
+    animation: slideIn .4s ease-in-out;
+  }
+  &.ng-hide {
+    animation: bounceOut .2s ease-in-out;
+  }
+  #invite {
+    border: 1px dashed #ccc;
+    ul {
+      list-style: none;
+      font-weight: 500;
+      input {
+        margin-right: 4px;
+      }
+    }
+  }
+  #objective {
+    padding: 20px;
+    background: url('/assets/images/lghtmesh.png') repeat;
+  }
+}
+
+
+
+@keyframes slideIn {
+  0% {transform: translateX(-800px);}
+  70% {transform: translateX(125px);}
+  100% {transform: translateX(0);}
+}
+
+@keyframes bounceOut {
+  70% {transform: scale(1.3);}
+  100% {transform: scale(0);}
+}

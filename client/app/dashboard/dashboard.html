@@ -23,7 +23,7 @@
   
   <section id="objectives" class="col-md-10">
     <h1>Objectives</h1>
-    <button type="button" class="btn btn-default btn-xs">broadcast new</button>
+    <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
     <table class="table">
       <thead>
         <tr>
@@ -34,10 +34,41 @@
       </thead>
       <tr ng-repeat="objective in objectives">
         <td>{{ objective.name }}</td>
-        <td>{{ objective.description }}</td>
+        <td>{{ objective.info }}</td>
         <td>{{ objective.contributors }}</td>
       </tr>
     </table>
   </section>
+
+</div>
+
+<div id="broadcast" class="container" ng-show="objAdd">
+
+  <figure id="invite" class="col-md-4">
+    <h2>Invite contributors</h2>
+    <ul ng-repeat="contact in contacts">
+      <li><input type="checkbox" />{{ contact.user }}</li>
+  </figure>
+
+  <form id="objective" class="form col-md-4" name="objective" ng-submit="addObjective(objective)" novalidate>
+    <div class="form-group">
+      <label>Objective</label>
+      <input type="text" name="objective" class="form-control" ng-model="objectiveToAdd" required />
+      <p class="text-danger" ng-show="invalid && submitted">
+        {{ addErrors.objective }}
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" name="descript" class="form-control" ng-model="objDescription" required />
+      <p class="text-danger" ng-show="invalid && submitted">
+        {{ addErrors.descript }}
+      </p>
+    </div>
+
+    <button class="btn btn-default" type="submit">Broadcast</button>
+    <button class="btn btn-default" type="reset" ng-click="toggleAdd()">Cancel</button>
+  </form>
 
 </div>

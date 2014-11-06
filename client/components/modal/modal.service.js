@@ -71,6 +71,40 @@ angular.module('meshApp')
               del.apply(event, args);
             });
           };
+        },
+        add: function(add) {
+          add = add || angular.noop;
+
+          return function() {
+            var args = Array.prototype.call(arguments),
+                name = args.shift(),
+                addModal;
+
+            addModal = openModal({
+              modal: {
+                dismissable: true,
+                title: 'Confirm Delete',
+                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                buttons: [{
+                  classes: 'btn-danger',
+                  text: 'Delete',
+                  click: function(e) {
+                    deleteModal.close(e);
+                  }
+                }, {
+                  classes: 'btn-default',
+                  text: 'Cancel',
+                  click: function(e) {
+                    deleteModal.dismiss(e);
+                  }
+                }]
+              }
+            }, 'modal-primary');
+
+            addModal.result.then(function(event) {
+              add.apply(event, args);
+            });
+          };
         }
       }
     };

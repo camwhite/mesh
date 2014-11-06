@@ -28,19 +28,50 @@ angular.module('meshApp')
     $scope.objectives = [
       {
         name: 'Grunt', 
-        description: 'Learn it',
+        info: 'Learn it',
         contributors: 2
       },
       {
         name: 'Node',
-        description: 'In depth study',
+        info: 'In depth study',
         contributors: 4
       },
       {
         name: 'Angular',
-        description: 'Study group',
+        info: 'Study group',
         contributors: 8
       }
     ];
+
+    $scope.objAdd = false;
+
+    $scope.toggleAdd = function() {
+      $scope.objAdd = !$scope.objAdd
+    }
+
+    $scope.objectiveToAdd = '';
+    $scope.objDescription = '';
+
+    $scope.addErrors = {}
+
+    $scope.addObjective = function(form) {
+      $scope.submitted = true;
+
+      if(form.$valid) {
+        $scope.invalid = false;
+        $http.post('api/things', {name: $scope.objectiveToAdd, info: $scope.objDescription, contributors: 1}).
+        success(function(data) {
+          $scope.objectives.push(data);
+        });
+        
+        $scope.objectiveToAdd = '';
+        $scope.objDescription = '';
+      }
+      if(form.$invalid) {
+        $scope.invalid = true;
+        $scope.addErrors.objective = 'An objective is required';
+        $scope.addErrors.descript = 'A description is required'
+      }
+    }
 
   });
