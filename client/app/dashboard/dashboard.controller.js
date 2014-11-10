@@ -10,6 +10,13 @@ angular.module('meshApp')
     }
     getMe();
 
+    var getObj = function() {
+      $http.get('api/things').success(function(data) {
+        $scope.objectives = data;
+      });
+    }
+    getObj();
+
     $scope.contacts = [
       {
         user: 'Irwin Litvak',
@@ -25,23 +32,7 @@ angular.module('meshApp')
       }
     ];
 
-    $scope.objectives = [
-      {
-        name: 'Grunt', 
-        info: 'Learn it',
-        contributors: 2
-      },
-      {
-        name: 'Node',
-        info: 'In depth study',
-        contributors: 4
-      },
-      {
-        name: 'Angular',
-        info: 'Study group',
-        contributors: 8
-      }
-    ];
+    
 
     $scope.objAdd = false;
 

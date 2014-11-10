@@ -35,6 +35,11 @@ h1, h2 {
     thead {
       font-weight: 700;
     }
+    tr {
+      &.ng-enter {
+        animation: bounceIn .2s ease-in-out;
+      }
+    }
   }
 }
 
@@ -61,7 +66,11 @@ h1, h2 {
   }
 }
 
-
+@keyframes bounceIn {
+  0% {transform: scale(0);}
+  70% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
 
 @keyframes slideIn {
   0% {transform: translateX(-800px);}
