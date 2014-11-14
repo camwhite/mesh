@@ -1,17 +1,12 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('DashboardCtrl', function ($scope, $http, User, Modal) {
-    
-    var getMe = function() {
-      $http.get('api/users/me').success(function(me) {
-        $scope.me = me;
-      });
-    }
-    getMe();
+  .controller('DashboardCtrl', function ($scope, $http, Auth) {
+
+    $scope.getCurrentUser = Auth.getCurrentUser;
 
     var getObj = function() {
-      $http.get('api/things').success(function(data) {
+      $http.get('api/users/' + Auth.getCurrentUser()._id + '/things').success(function(data) {
         $scope.objectives = data;
       });
     }
@@ -32,7 +27,12 @@ angular.module('meshApp')
       }
     ];
 
-    
+    $scope.invitees = [];
+
+    $scope.removeInvitee = function(user) {
+      var index = $scope.invitees.indexOf(user);
+      $scope.invitees.splice(index, 1);
+    }
 
     $scope.objAdd = false;
 
@@ -50,10 +50,12 @@ angular.module('meshApp')
 
       if(form.$valid) {
         $scope.invalid = false;
-        $http.post('api/things', {name: $scope.objectiveToAdd, info: $scope.objDescription, contributors: 1}).
+        $http.post('api/things', {name: $scope.objectiveToAdd, info: $scope.objDescription, contributors: $scope.invitees.length}).
         success(function(data) {
           $scope.objectives.push(data);
         });
+
+        $scope.invitees = [];
         
         $scope.objectiveToAdd = '';
         $scope.objDescription = '';

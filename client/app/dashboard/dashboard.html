@@ -3,7 +3,7 @@
 <div class="container">
 
   <figure id="user" class="col-md-2">
-    <h3>{{ me.name }}</h3>
+    <h3>{{ getCurrentUser().name }}</h3>
     <p>Telluride, CO</p>
     </h5>Leader</h5>
   </figure>
@@ -11,43 +11,23 @@
   <figure id="contacts" class="col-md-8">
     <h2>Contacts</h2>
     <div class="contact" ng-repeat="contact in contacts">
-      <p>{{ contact.user }}</p>
+      <p data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="contact" jqyoui-draggable="{placeholder: 'keep'}">
+        {{ contact.user }}
+      </p>
       <span ng-class="{online: contact.online}"></span>
     </div>
   </figure>
 
 </div>
 
-
-<div class="container">
-  
-  <section id="objectives" class="col-md-10">
-    <h1>Objectives</h1>
-    <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Contributors</th>
-        </tr>
-      </thead>
-      <tr ng-repeat="objective in objectives">
-        <td>{{ objective.name }}</td>
-        <td>{{ objective.info }}</td>
-        <td>{{ objective.contributors }}</td>
-      </tr>
-    </table>
-  </section>
-
-</div>
-
 <div id="broadcast" class="container" ng-show="objAdd">
 
-  <figure id="invite" class="col-md-4">
+  <figure id="invite" class="col-md-4" data-drop="true" data-jqyoui-options ng-model="invitees" jqyoui-droppable="{multiple:true, stack:true}">
     <h2>Invite contributors</h2>
-    <ul ng-repeat="contact in contacts">
-      <li><input type="checkbox" />{{ contact.user }}</li>
+    <p data-drag="false" data-jqyoui-options ng-model="invitees" jqyoui-draggable ng-repeat="invitee in invitees">
+      {{ invitee.user }}  <span ng-click="removeInvitee(invitee)">&times;</span>
+    </p>
+    <p class="hint">*drag and drop contacts to invite</p>
   </figure>
 
   <form id="objective" class="form col-md-4" name="objective" ng-submit="addObjective(objective)" novalidate>
@@ -72,3 +52,27 @@
   </form>
 
 </div>
+
+<div class="container">
+  
+  <section id="objectives" class="col-md-10">
+    <h1>Objectives</h1>
+    <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Contributors</th>
+        </tr>
+      </thead>
+      <tr ng-repeat="objective in objectives">
+        <td>{{ objective.name }}</td>
+        <td>{{ objective.info }}</td>
+        <td>{{ objective.contributors }}</td>
+      </tr>
+    </table>
+  </section>
+
+</div>
+

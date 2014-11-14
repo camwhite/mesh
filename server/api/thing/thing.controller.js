@@ -20,6 +20,14 @@ exports.index = function(req, res) {
   });
 };
 
+// Get list of things fpr a iser
+exports.indexForUser = function(req, res) {
+  Thing.find({user: req.user.id}, function (err, things) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, things);
+  });
+};
+
 // Get a single thing
 exports.show = function(req, res) {
   Thing.findById(req.params.id, function (err, thing) {
@@ -31,6 +39,8 @@ exports.show = function(req, res) {
 
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
+  req.body.user = req.user;
+  console.log(req.body);
   Thing.create(req.body, function(err, thing) {
     if(err) { return handleError(res, err); }
     return res.json(201, thing);

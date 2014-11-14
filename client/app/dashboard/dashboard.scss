@@ -13,6 +13,7 @@ h1, h2 {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    cursor: pointer;
     span {
       width: 8px;
       height: 8px;
@@ -44,6 +45,7 @@ h1, h2 {
 }
 
 #broadcast {
+  margin-top: 20px;
   &.ng-hide-remove {
     animation: slideIn .4s ease-in-out;
   }
@@ -52,15 +54,15 @@ h1, h2 {
   }
   #invite {
     border: 1px dashed #ccc;
-    ul {
-      list-style: none;
-      font-weight: 500;
-      input {
-        margin-right: 4px;
-      }
+    span {
+      cursor: pointer;
+    }
+    .hint {
+      font-size: 10px;
     }
   }
   #objective {
+    margin-bottom: -30px;
     padding: 20px;
     background: url('/assets/images/lghtmesh.png') repeat;
   }
