@@ -37,8 +37,27 @@ h1, h2 {
       font-weight: 700;
     }
     tr {
-      &.ng-enter {
-        animation: bounceIn .2s ease-in-out;
+      &:nth-of-type(even) {
+        background: url('/assets/images/lghtmesh.png') repeat;
+      }
+      td {
+        padding: 25px 7px;
+        &:nth-child(3) {
+          text-align: center;
+        }
+        &:nth-child(4) {
+          text-align: right;
+        }
+        span {
+          padding: 12px 95px 12px 0;
+        }
+        i {
+          margin: 0 2px;
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.4);
+          }
+        }
       }
     }
   }
@@ -83,4 +102,9 @@ h1, h2 {
 @keyframes bounceOut {
   70% {transform: scale(1.3);}
   100% {transform: scale(0);}
+}
+
+@keyframes jiggle {
+  20% {transform: rotateX(-6deg);}
+  80% {transform: rotateX(6deg);}
 }
