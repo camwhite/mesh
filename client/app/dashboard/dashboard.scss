@@ -5,7 +5,7 @@ h1, h2 {
 #user {
   text-align: center;
   background: url('/assets/images/lghtmesh.png') repeat;
-  padding: 22px 0;
+  padding: 44px 0;
 }
 
 #contacts {
@@ -27,44 +27,45 @@ h1, h2 {
   }
 }
 
-#objectives {
-  margin: 10px 20px;
-  h1 {
-    display: inline-block;
-  }
-  table {
-    thead {
-      font-weight: 700;
-    }
-    tr {
-      &:nth-of-type(even) {
-        background: url('/assets/images/lghtmesh.png') repeat;
-      }
-      td {
-        padding: 25px 7px;
-        &:nth-child(3) {
-          text-align: center;
-        }
-        &:nth-child(4) {
-          text-align: right;
-        }
-        span {
-          padding: 12px 95px 12px 0;
-        }
-        i {
-          margin: 0 2px;
-          cursor: pointer;
-          &:hover {
-            transform: scale(1.4);
-          }
-        }
-      }
-    }
-  }
-}
+// #objectives {
+//   margin: 10px 20px;
+//   h1 {
+//     display: inline-block;
+//   }
+//   table {
+//     thead {
+//       font-weight: 700;
+//     }
+//     tr {
+//       &:nth-of-type(even) {
+//         background: url('/assets/images/lghtmesh.png') repeat;
+//       }
+//       td {
+//         padding: 25px 7px;
+//         &:nth-child(3) {
+//           text-align: center;
+//         }
+//         &:nth-child(4) {
+//           text-align: right;
+//         }
+//         span {
+//           padding: 12px 95px 12px 0;
+//         }
+//         i {
+//           margin: 0 2px;
+//           cursor: pointer;
+//           &:hover {
+//             transform: scale(1.4);
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 #broadcast {
   margin-top: 20px;
+  margin-bottom: 20px;
   &.ng-hide-remove {
     animation: slideIn .4s ease-in-out;
   }
@@ -81,9 +82,55 @@ h1, h2 {
     }
   }
   #objective {
-    margin-bottom: -30px;
     padding: 20px;
     background: url('/assets/images/lghtmesh.png') repeat;
+  }
+}
+
+#objectives {
+  margin: 20px auto;
+  h1 {
+    display: inline-block;
+  }
+  #objective-card {
+    position: relative;
+    height: 299px;
+    margin: 40px;
+    background: url('/assets/images/lghtmesh.png') repeat;
+    &:hover .controls {
+      visibility: visible;
+    }
+    .controls {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      visibility: hidden;
+      i {
+        margin: 0 2px;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.4);
+        }
+      }
+    }
+    section, form {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    section {
+      h2 {
+        font-size: 34px;
+        font-weight: 700;
+      }
+    }
+    form {
+      input {
+        width: 175px;
+        margin: 14px 0;
+      }
+    }
   }
 }
 

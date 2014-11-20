@@ -41,7 +41,7 @@
 
     <div class="form-group">
       <label>Description</label>
-      <input type="text" name="descript" class="form-control" ng-model="objDescription" required />
+      <textarea type="text" name="descript" class="form-control" ng-model="objDescription" required />
       <p class="text-danger" ng-show="invalid && submitted">
         {{ addErrors.descript }}
       </p>
@@ -53,9 +53,9 @@
 
 </div>
 
-<div class="container">
+<div id="objectives" class="container">
 
-  <section id="objectives" class="col-md-10">
+  <!-- <section id="objectives" class="col-md-10">
     <h1>Objectives</h1>
     <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
     <table class="table">
@@ -77,7 +77,7 @@
           <span ng-hide="$index === indexEditing">
             {{ objective.info }}
           </span>
-          <input type="text" name="name" ng-show="$index === indexEditing" ng-model="objective.info" />
+          <input type="text" name="info" ng-show="$index === indexEditing" ng-model="objective.info" />
         </td>
         <td>
           <span>
@@ -91,6 +91,28 @@
         </td>
       </tr>
     </table>
-  </section>
+  </section> -->
+  <div class="col-md-12">
+    <h1>Objectives</h1>
+    <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
+  </div>
+
+  <figure id="objective-card" class="col-md-offset-1 col-md-3" ng-repeat="objective in objectives">
+    <div class="controls">
+      <i class="fa fa-check" ng-show="$index === indexEditing" ng-click="editObjective(objective)"></i>
+      <i class="fa fa-pencil" ng-hide="$index === indexEditing" ng-click="toggleEdit($index)"></i>
+      <i class="fa fa-trash" ng-click="deleteObjective(objective)"></i>
+    </div>
+    <section ng-hide="$index === indexEditing">
+      <h2>{{ objective.name }}</h2>
+      <p>
+        {{ objective.info }}
+      </p>
+    </section>
+    <form name="edit" ng-show="$index === indexEditing">
+      <input class="form-control" type="text" name="name" ng-model="objective.name" />
+      <input class="form-control" type="text" name="info" ng-model="objective.info" />
+    </form>
+  </figure>
 
 </div>
