@@ -1,16 +1,13 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('DashboardCtrl', function ($scope, $http, Auth) {
+  .controller('DashboardCtrl', function ($scope, $http, Auth, Http) {
 
     $scope.getCurrentUser = Auth.getCurrentUser;
 
-    var getObj = function() {
-      $http.get('api/users/' + Auth.getCurrentUser()._id + '/things').success(function(data) {
-        $scope.objectives = data.reverse();
-      });
-    }
-    getObj();
+    Http.getUsersThings().then(function(data) {
+      $scope.objectives = data.reverse();
+    });
 
     $scope.contacts = [
       {

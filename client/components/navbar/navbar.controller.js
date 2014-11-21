@@ -2,10 +2,16 @@
 
 angular.module('meshApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
-    $scope.menu = [{
-      'title': 'Dashboard',
-      'link': '/dashboard'
-    }];
+    $scope.menu = [
+      {
+        'title': 'Dashboard',
+        'link': '/dashboard'
+      },
+      {
+        'title': 'Discover',
+        'link': '/discover'
+      }
+    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

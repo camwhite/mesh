@@ -1,0 +1,26 @@
+#objective-card {
+  position: relative;
+  height: 249px;
+  margin: 20px;
+  background: url('/assets/images/lghtmesh.png') repeat;
+  section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+}
+
+
+#recommended {
+  margin-top: 20px;
+  padding: 20px 0 400px;
+  background: url('/assets/images/lghtmesh.png') repeat;
+  h2, .contact {
+    margin-left: 20px;
+  }
+}
