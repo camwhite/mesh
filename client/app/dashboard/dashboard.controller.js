@@ -9,20 +9,7 @@ angular.module('meshApp')
       $scope.objectives = data.reverse();
     });
 
-    $scope.contacts = [
-      {
-        user: 'Irwin Litvak',
-        online: true
-      },
-      {
-        user: 'Jennifer Nelson',
-        online: true
-      },
-      {
-        user: 'Tyler Ball',
-        online: false
-      }
-    ];
+    $scope.contacts = $scope.getCurrentUser().contacts;
 
     $scope.invitees = [];
 
@@ -40,16 +27,28 @@ angular.module('meshApp')
     $scope.objectiveToAdd = '';
     $scope.objDescription = '';
 
-    $scope.addErrors = {}
+    $scope.charCount = 0;
+
+    $scope.$watch('objDescription', function(newVal, oldVal) {
+      if($scope.charCount >= 0) {
+        $scope.charCount = 60 - newVal.length;
+      }
+    })
+
+    $scope.addErrors = {};
 
     $scope.addObjective = function(form) {
       $scope.submitted = true;
 
       if(form.$valid) {
         $scope.invalid = false;
-        $http.post('api/things', {name: $scope.objectiveToAdd, info: $scope.objDescription, contributors: $scope.invitees.length + 1})
-        .success(function(data) {
-          $scope.objectives.unshift(data);
+        $http.post('api/things', {
+            name: $scope.objectiveToAdd,
+            info: $scope.objDescription,
+            contributors: $scope.invitees.length + 1,
+            username: Auth.getCurrentUser().name
+          }).success(function(data) {
+            $scope.objectives.unshift(data);
         });
 
         $scope.invitees = [];

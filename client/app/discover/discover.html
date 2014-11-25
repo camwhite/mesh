@@ -3,31 +3,34 @@
 <div class="container">
 
   <header class="col-md-12">
-    <h4>Trending</h4>
+    <h2>Featured<br>Contributors</h2>
   </header>
 
-
-  <div class="col-md-9">
-    <figure id="objective-card" class="col-md-offset-1 col-md-3" ng-repeat="objective in objectives">
-      <section>
-        <h2>{{ objective.name }}</h2>
-        <p>
-          {{ objective.info }}
-        </p>
-      </section>
-    </figure>
-  </div>
-
-  <div class="col-md-3">
+  <div class="col-md-11">
     <figure id="recommended">
-      <h2>Featured Contributors</h2>
-      <div class="contact" ng-repeat="contact in contacts">
-        <p>
-          {{ contact.user }}
-        </p>
-        <span ng-class="{online: contact.online}"></span>
+      <div class="user" ng-repeat="user in standardUsers">
+        <i class="fa fa-plus" ng-click="addAsContact(user)"></i>
+        <span>
+          {{ user.name }}
+        </span>
       </div>
     </figure>
   </div>
+
+  <header class="col-md-12">
+    <h3>Trending Topics</h3>
+  </header>
+
+  <figure id="objective-card" class="col-md-offset-1 col-md-3" ng-repeat="objective in objectives">
+    <section>
+      <h2>{{ objective.name }}</h2>
+      <p class="description">
+        {{ objective.info }}
+      </p>
+      <p class="author">
+        By {{ objective.username }}
+      </p>
+    </section>
+  </figure>
 
 </div>

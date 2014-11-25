@@ -18,7 +18,11 @@ var UserSchema = new Schema({
   facebook: {},
   twitter: {},
   google: {},
-  github: {}
+  github: {},
+  contacts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 /**

@@ -6,7 +6,7 @@ angular.module('meshApp')
     if($cookieStore.get('token')) {
       currentUser = User.get();
     }
-
+    console.log(currentUser);
     return {
 
       /**

@@ -8,6 +8,7 @@ var ThingSchema = new Schema({
   info: String,
   contributors: Number,
   active: Boolean,
+  username: String,
   user: {
     type: Schema.ObjectId,
     ref: 'User'

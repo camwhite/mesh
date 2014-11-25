@@ -84,6 +84,9 @@ h1, h2 {
   #objective {
     padding: 20px;
     background: url('/assets/images/lghtmesh.png') repeat;
+    textarea {
+      resize: none;
+    }
   }
 }
 

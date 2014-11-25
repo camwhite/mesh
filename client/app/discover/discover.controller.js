@@ -2,22 +2,21 @@
 
 angular.module('meshApp')
   .controller('DiscoverCtrl', function ($scope, $http, Auth, Http) {
+    $scope.getCurrentUser = Auth.getCurrentUser;
+
+    Http.getAllUsers().then(function(data) {
+      $scope.standardUsers = data;
+      console.log($scope.standardUsers);
+      
+    });
+
     Http.getAllThings().then(function(data) {
       $scope.objectives = data.reverse();
     });
 
-    $scope.contacts = [
-      {
-        user: 'Irwin Litvak',
-        online: true
-      },
-      {
-        user: 'Jennifer Nelson',
-        online: true
-      },
-      {
-        user: 'Tyler Ball',
-        online: false
-      }
-    ];
+    $scope.addAsContact = function (user) {
+      Http.addAsContact(user).then(function (data) {
+
+      });
+    }
   });

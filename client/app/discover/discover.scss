@@ -1,7 +1,37 @@
+#recommended {
+  margin-bottom: 60px;
+  padding: 40px 0;
+  background: url('/assets/images/lghtmesh.png') repeat;
+  .user {
+    margin-top: 15px;
+    margin-left: 16px;
+    span {
+      line-height: 10px;
+    }
+    i {
+      margin-right: 3px;
+      padding: 5px;
+      background: black;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        background: #666;
+      }
+    }
+  }
+}
+
+header {
+  margin-bottom: 20px;
+  &:nth-child(1) {
+    margin-bottom: 10px;
+  }
+}
+
 #objective-card {
   position: relative;
   height: 249px;
-  margin: 20px;
+  margin-bottom: 80px;
   background: url('/assets/images/lghtmesh.png') repeat;
   section {
     position: absolute;
@@ -12,15 +42,10 @@
       font-size: 24px;
       font-weight: 700;
     }
-  }
-}
-
-
-#recommended {
-  margin-top: 20px;
-  padding: 20px 0 400px;
-  background: url('/assets/images/lghtmesh.png') repeat;
-  h2, .contact {
-    margin-left: 20px;
+    .author {
+      font-weight: 500;
+      line-height: 4;
+      white-space: nowrap;
+    }
   }
 }

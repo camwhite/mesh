@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -15,6 +16,16 @@ var validationError = function(res, err) {
  */
 exports.index = function(req, res) {
   User.find({}, '-salt -hashedPassword', function (err, users) {
+    if(err) return res.send(500, err);
+    res.json(200, users);
+  });
+};
+
+/**
+ * Get list of non-admin users
+ */
+exports.standard = function(req, res) {
+  User.find({role: 'user'}, '-salt -hashedPassword -role -provider', function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
@@ -80,13 +91,30 @@ exports.changePassword = function(req, res, next) {
 };
 
 /**
+ * Add a contact
+ */
+exports.addContact = function(req, res, next) {
+  var userId = req.user._id;
+  var contact = req.body;
+  contact._id = mongoose.Types.ObjectId(contact._id);
+console.log(contact);
+  User.findById(userId, function (err, user) {
+      user.contacts.push(contact);
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+        res.send(200);
+      });
+  });
+};
+
+/**
  * Get my info
  */
 exports.me = function(req, res, next) {
   var userId = req.user._id;
   User.findOne({
     _id: userId
-  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+  }, '-salt -hashedPassword').populate('contacts', '-salt -hashedPassword').exec(function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
     if (!user) return res.json(401);
     res.json(user);
