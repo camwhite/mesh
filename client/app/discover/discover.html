@@ -8,8 +8,8 @@
 
   <div class="col-md-11">
     <figure id="recommended">
-      <div class="user" ng-repeat="user in standardUsers">
-        <i class="fa fa-plus" ng-click="addAsContact(user)"></i>
+      <div class="user" ng-repeat="user in standardUsers | filter: knownContacts">
+        <i class="fa fa-plus-circle" ng-click="addAsContact(user)"></i>
         <span>
           {{ user.name }}
         </span>

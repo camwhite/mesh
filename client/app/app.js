@@ -9,7 +9,8 @@ angular.module('meshApp', [
   'ui.bootstrap',
   'angularFileUpload',
   'ngAnimate',
-  'ngDragDrop'
+  'ngDragDrop',
+  'ngMaterial'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

@@ -23,9 +23,21 @@ angular.module('meshApp')
 
           return deferred.promise;
         },
+        getMe: function() {
+          var deferred = $q.defer();
+          $http.get('api/users/me').success(deferred.resolve).error(deferred.reject);
+
+          return deferred.promise;
+        },
         addAsContact: function(user) {
           var deferred = $q.defer();
           $http.post('api/users/contacts', user).success(deferred.resolve).error(deferred.reject);
+
+          return deferred.promise;
+        },
+        deleteContact: function(user) {
+          var deferred = $q.defer();
+          $http.delete('api/users/contacts/' + user._id).success(deferred.resolve).error(deferred.reject);
 
           return deferred.promise;
         }

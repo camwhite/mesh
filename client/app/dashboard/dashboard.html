@@ -8,15 +8,17 @@
     </h5>Leader</h5>
   </figure>
 
-  <figure id="contacts" class="col-md-8">
-    <h2>Contacts</h2>
-    <div class="contact" ng-repeat="contact in contacts">
-      <p data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="contact" jqyoui-draggable="{placeholder: 'keep'}">
-        {{ contact.name }}
-      </p>
-      <span ng-class="{online: contact.online}"></span>
-    </div>
-  </figure>
+  <div class="col-md-8">
+    <figure id="contacts">
+      <h2>Contacts</h2>
+      <div class="contact" ng-repeat="contact in contacts">
+        <p data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="contact" jqyoui-draggable="{placeholder: 'keep'}">
+          {{ contact.name }}
+        </p>
+        <span ng-click="deleteContact(contact)">&times;</span>
+      </div>
+    </figure>
+  </div>
 
 </div>
 
@@ -25,7 +27,7 @@
   <figure id="invite" class="col-md-4" data-drop="true" data-jqyoui-options ng-model="invitees" jqyoui-droppable="{multiple:true, stack:true}">
     <h2>Invite Collaborators</h2>
     <p data-drag="false" data-jqyoui-options ng-model="invitees" jqyoui-draggable ng-repeat="invitee in invitees">
-      {{ invitee.user }}  <span ng-click="removeInvitee(invitee)">&times;</span>
+      {{ invitee.name }}  <span ng-click="removeInvitee(invitee)">&times;</span>
     </p>
     <p class="hint">*drag and drop contacts to invite</p>
   </figure>
@@ -41,7 +43,7 @@
 
     <div class="form-group">
       <label>Description</label>
-      <textarea type="text" name="descript" class="form-control" ng-model="objDescription" maxlength="60" required />
+      <textarea type="text" name="descript" class="form-control" ng-model="objDescription" ng-trim="false" maxlength="60" required />
       <span class="text-danger" ng-show="invalid && submitted">
         {{ addErrors.descript }}
       </span>

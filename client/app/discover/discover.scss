@@ -1,21 +1,19 @@
 #recommended {
   margin-bottom: 60px;
-  padding: 40px 0;
+  padding: 10px 0;
   background: url('/assets/images/lghtmesh.png') repeat;
   .user {
     margin-top: 15px;
     margin-left: 16px;
     span {
-      line-height: 10px;
+      font-family: 'Montserrat';
+      font-size: 18px;
     }
     i {
-      margin-right: 3px;
-      padding: 5px;
-      background: black;
-      color: white;
+      font-size: 22px;
       cursor: pointer;
       &:hover {
-        background: #666;
+        color: green;
       }
     }
   }

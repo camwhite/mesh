@@ -25,7 +25,7 @@ exports.index = function(req, res) {
  * Get list of non-admin users
  */
 exports.standard = function(req, res) {
-  User.find({role: 'user'}, '-salt -hashedPassword -role -provider', function (err, users) {
+  User.find({role: 'user'}, '-salt -hashedPassword -role -provider').populate('contacts', '-salt -hashedPassword').exec(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
@@ -99,26 +99,65 @@ exports.addContact = function(req, res, next) {
   contact._id = mongoose.Types.ObjectId(contact._id);
 console.log(contact);
   User.findById(userId, function (err, user) {
-      user.contacts.push(contact);
-      user.save(function(err) {
-        if (err) return validationError(res, err);
-        res.send(200);
-      });
+    user.contacts.push(contact);
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
+  });
+  User.findById(contact._id, function (err, user) {
+    user.contacts.push(req.user);
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
   });
 };
+
+
+var findMe = function (req, res, next, callback) {
+  var userId = req.user._id;
+  User.findOne({
+    _id: userId
+  }, '-salt -hashedPassword').populate('contacts', '-salt -hashedPassword').exec(function(err, user) { // don't ever give out the password or salt
+  if (err) return next(err);
+  if (!user) return res.json(401);
+  callback(user);
+});
+}
+/**
+* Remove a contact
+*/
+exports.removeContact = function(req, res, next) {
+  var userId = String(req.user._id);
+  var contactId = req.params.id;
+  findMe(req, res, next, function (user) {
+    user.contacts.pull(contactId);
+    user.save();
+    res.json(user.contacts);
+  });
+  // User.update({_id: mongoose.Types.ObjectId(userId)}, {$pull: {"contacts": mongoose.Types.ObjectId(contactId)}});
+  // console.log('db.users.update({_id: ObjectId("'+userId+'")},{$pull: {"contacts": ObjectId("'+contactId+'")}});');
+  // console.log(userId);
+};
+
+
+//db.articles.update({"tags.text": "tag-1"},{$pull: {"tags": {text: "tag-1"}}}, {multi: true})
 
 /**
  * Get my info
  */
 exports.me = function(req, res, next) {
-  var userId = req.user._id;
-  User.findOne({
-    _id: userId
-  }, '-salt -hashedPassword').populate('contacts', '-salt -hashedPassword').exec(function(err, user) { // don't ever give out the password or salt
-    if (err) return next(err);
-    if (!user) return res.json(401);
+  findMe(req, res, next, function (user) {
     res.json(user);
   });
+  // User.findOne({
+  //   _id: userId
+  // }, '-salt -hashedPassword').populate('contacts', '-salt -hashedPassword').exec(function(err, user) { // don't ever give out the password or salt
+  //   if (err) return next(err);
+  //   if (!user) return res.json(401);
+  //   res.json(user);
+  // });
 };
 
 /**

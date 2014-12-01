@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('DashboardCtrl', function ($scope, $http, Auth, Http) {
+  .controller('DashboardCtrl', function ($scope, $rootScope, $http, Auth, Http) {
 
     $scope.getCurrentUser = Auth.getCurrentUser;
 
@@ -9,7 +9,16 @@ angular.module('meshApp')
       $scope.objectives = data.reverse();
     });
 
-    $scope.contacts = $scope.getCurrentUser().contacts;
+    $rootScope.myContacts = $scope.getCurrentUser().contacts;
+    $scope.contacts = $rootScope.myContacts;
+
+    $scope.deleteContact = function (contact) {
+      Http.deleteContact(contact).then(function(data) {
+        var index = $rootScope.myContacts.indexOf(contact);
+        $rootScope.myContacts.splice(index, 1);
+      });
+    }
+
 
     $scope.invitees = [];
 
@@ -27,13 +36,18 @@ angular.module('meshApp')
     $scope.objectiveToAdd = '';
     $scope.objDescription = '';
 
-    $scope.charCount = 0;
+    $scope.charCount = 60;
+    var originalCount = 60;
 
     $scope.$watch('objDescription', function(newVal, oldVal) {
-      if($scope.charCount >= 0) {
-        $scope.charCount = 60 - newVal.length;
+      if(newVal === undefined) {
+        $scope.charCount = originalCount;
+      } else {
+        if($scope.charCount >= 0) {
+          $scope.charCount = originalCount - newVal.length;
+        }
       }
-    })
+    });
 
     $scope.addErrors = {};
 

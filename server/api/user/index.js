@@ -15,6 +15,7 @@ router.delete('/:id', auth.hasRole('admin'), controller.destroy);
 router.get('/me', auth.isAuthenticated(), controller.me);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.post('/contacts', auth.isAuthenticated(), controller.addContact);
+router.delete('/contacts/:id', auth.isAuthenticated(), controller.removeContact);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 
