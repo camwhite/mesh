@@ -23,7 +23,7 @@
 
   <figure id="objective-card" class="col-md-offset-1 col-md-3" ng-repeat="objective in objectives">
     <section>
-      <h2>{{ objective.name }}</h2>
+      <h2><a ng-href="/objectives/{{objective._id}}">{{ objective.name }}</a></h2>
       <p class="description">
         {{ objective.info }}
       </p>

@@ -17,6 +17,12 @@ angular.module('meshApp')
 
           return deferred.promise;
         },
+        getThing: function(id) {
+          var deferred = $q.defer();
+          $http.get('api/things/'+id).success(deferred.resolve).error(deferred.reject);
+
+          return deferred.promise;
+        },
         getAllUsers: function() {
           var deferred = $q.defer();
           $http.get('api/users/standard').success(deferred.resolve).error(deferred.reject);
