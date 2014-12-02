@@ -4,11 +4,14 @@ h1, h2 {
 
 #user {
   text-align: center;
-  background: url('/assets/images/lghtmesh.png') repeat;
   padding: 29px 0;
+  margin: 0 40px;
+  background: url('/assets/images/lghtmesh.png') repeat;
+  color: black;
 }
 
 #contacts {
+  padding: 20px;
   .contact {
     cursor: pointer;
     &:hover span {
@@ -87,11 +90,16 @@ h1, h2 {
   }
 }
 
-#objectives {
-  margin: 20px auto;
+.heading {
+  margin: 40px 0 40px 120px;
+  padding: 20px 0;
   h1 {
     display: inline-block;
+    font-size: 40px;
   }
+}
+
+#objectives {
   #objective-card {
     position: relative;
     height: 299px;
