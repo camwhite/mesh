@@ -1,0 +1,39 @@
+
+.info {
+  .discussion {
+    position: relative;
+    height: 83vh;
+    border: 5px solid $gray;
+    .chat {
+      position: relative;
+      height: 80%;
+      overflow: scroll;
+      p {
+        margin: 0;
+        padding: 10px 0 10px 5px;
+        &:nth-of-type(even) {
+          background: url('/assets/images/geometry2.png') repeat;
+        }
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+    form {
+      position: absolute;
+      width: 100%;
+      bottom: 17px;
+      left: 0;
+      input {
+        width: 90%;
+        margin: auto;
+      }
+      button {
+        margin-right: 5px;
+      }
+    }
+  }
+  section {
+    margin-left: 40px;
+  }
+}

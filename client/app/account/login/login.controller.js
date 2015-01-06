@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', function ($scope, $rootScope, Auth, $location, $window) {
+    $rootScope.toggleNav = true;
+
     $scope.user = {};
     $scope.errors = {};
+
+    $scope.submitted = false;
 
     $scope.login = function(form) {
       $scope.submitted = true;

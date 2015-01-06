@@ -1,22 +1,24 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
+<header id="banner">
   <div class="container">
     <h1>Mesh</h1>
     <p class="lead">Build and Learn, Together.</p>
+    <md-button ng-hide="isLoggedIn()" class="md-raised md-primary" md-theme="indigo" ng-href="/signup">Sign Up</md-button>
+    <p class="hint" ng-hide="isLoggedIn()">Or <a ng-href="/login">login</a></p>
   </div>
 </header>
 
 <div class='selling-points container'>
-  <div class='point col-md-4'>
+  <div class='point'>
      <h5>Real-time collaborative learning</h5>
      <p>Collaborate with real people and quickly increase your knowledge base.</p>
    </div>
-   <div class='point col-md-4'>
+   <div class='point'>
      <h5>Connect with your peers</h5>
      <p>Looking for people to learn with? Find them and accelerate your learning process.</p>
    </div>
-   <div class='point col-md-4'>
+   <div class='point'>
      <h5>Broadcast your current objectives</h5>
      <p>Let people know what <strong>you</strong> want to learn. Be notified of topics of interest.</p>
    </div>

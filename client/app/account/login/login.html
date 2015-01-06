@@ -1,11 +1,37 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
+<md-content class="login">
+  <header>
+    <h1>Login</h1>
+  </header>
+  <figure>
+    <md-button class="facebook" ng-click="loginOauth('facebook')">
+      <i class="fa fa-facebook"></i> Login with Facebook
+    </md-button>
+  </figure>
+  <form  id="login" name="form" ng-submit="login(form)" novalidate>
+    <md-text-float type="email" name="userEmail" label="Email" ng-model="user.email" required></md-text-float>
+    <div class="hint" ng-messages="form.userEmail.$error" ng-show="submitted && form.userEmail.$error">
+      <p ng-message="required">Please enter your email</p>
+      <p ng-message="email">Please enter a valid email</p>
+    </div>
+    <md-text-float name="userPassword" type="password" label="Password" ng-model="user.password" minlength="3" required></md-text-float>
+    <div class="hint" ng-messages="form.userPassword.$error" ng-show="submitted && form.userPassword.$error">
+      <p ng-message="required">Please enter your password</p>
+      <p ng-message="minlength">Your password is too short</p>
+      <p>{{ errors.other }}</p>
+    </div>
+    <md-button type="submit" class="md-primary md-raised">Login</md-button>
+  </form>
+  <p>
+    Not signed up? <a ng-href="/signup">Sign Up</a>
+  </p>
+</md-content>
+
+<!-- <div class="container">
   <div class="row">
     <div class="col-sm-12">
       <h1>Login</h1>
-      <p>Accounts are reset on server restart from <code>server/config/seed.js</code>. Default account is <code>test@test.com</code> / <code>test</code></p>
-      <p>Admin account is <code>admin@admin.com</code> / <code>admin</code></p>
     </div>
     <div class="col-md-8">
       <form class="form" name="form" ng-submit="login(form)" novalidate>
@@ -58,4 +84,4 @@
     </div>
   </div>
   <hr>
-</div>
+</div> -->

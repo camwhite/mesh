@@ -1,12 +1,22 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('DashboardCtrl', function ($scope, $rootScope, $http, Auth, Http) {
+  .controller('DashboardCtrl', function ($scope, $rootScope, $http, $mdToast, $animate, Auth, Http) {
+    $rootScope.toggleNav = true;
 
     $scope.getCurrentUser = Auth.getCurrentUser;
 
     Http.getUsersThings().then(function(data) {
-      $scope.objectives = data.reverse();
+      if(data.length < 1) {
+        $scope.objectives = [
+          {
+            info: 'Add an objective to get started.'
+          }
+        ];
+      }
+      if(data.length >= 1) {
+        $scope.objectives = data.reverse();
+      }
     });
 
     $rootScope.myContacts = $scope.getCurrentUser().contacts;
@@ -17,6 +27,12 @@ angular.module('meshApp')
         var index = $rootScope.myContacts.indexOf(contact);
         $rootScope.myContacts.splice(index, 1);
       });
+      $mdToast.show(
+        $mdToast.simple()
+        .content('Removed ' + contact.name)
+        .position('bottom right')
+        .hideDelay(1500)
+      );
     }
 
 
@@ -25,6 +41,7 @@ angular.module('meshApp')
     $scope.removeInvitee = function(user) {
       var index = $scope.invitees.indexOf(user);
       $scope.invitees.splice(index, 1);
+      console.log($scope.invitees);
     }
 
     $scope.objAdd = false;
@@ -59,11 +76,13 @@ angular.module('meshApp')
         $http.post('api/things', {
             name: $scope.objectiveToAdd,
             info: $scope.objDescription,
-            contributors: $scope.invitees.length + 1,
+            contributors: $scope.invitees,
             username: Auth.getCurrentUser().name
           }).success(function(data) {
             $scope.objectives.unshift(data);
         });
+
+        $scope.objAdd = !$scope.objAdd
 
         $scope.invitees = [];
 

@@ -1,6 +1,33 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
+<md-content class="sign-up">
+  <header>
+    <h1>Sign Up</h1>
+  </header>
+  <figure>
+    <md-button class="facebook" ng-click="loginOauth('facebook')">
+      <i class="fa fa-facebook"></i> Sign Up with Facebook
+    </md-button>
+  </figure>
+  <form  id="sign-up" name="form" ng-submit="register(form)" novalidate>
+    <md-text-float label="Name" ng-model="user.name" required></md-text-float>
+    <p class="help-block" ng-show="form.name.$error.required && submitted">
+      A name is required
+    </p>
+    <div layout="row" class="location">
+      <md-text-float label="City" ng-model="user.city" required></md-text-float>
+      <md-text-float label="Country" ng-model="user.country" required></md-text-float>
+    </div>
+    <md-text-float label="Email" ng-model="user.email" required></md-text-float>
+    <md-text-float type="password" label="Password" ng-model="user.password" minlength="3" required></md-text-float>
+    <md-button type="submit" class="md-primary md-raised">Sign Up</md-button>
+  </form>
+  <p>
+    Already signed up? <a ng-href="/login">Login</a>
+  </p>
+</md-content>
+
+<!-- <div class="container">
   <div class="row">
     <div class="col-sm-12">
       <h1>Sign up</h1>
@@ -16,6 +43,17 @@
                  required/>
           <p class="help-block" ng-show="form.name.$error.required && submitted">
             A name is required
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.location.$valid && submitted,
+                                            'has-error': form.name.$invalid && submitted }">
+          <label>Location</label>
+
+          <input type="text" name="city" placeholder="City" class="form-control" ng-model="user.city" required/>
+          <input type="text" name="country" placeholder="Country" class="form-control" ng-model="user.country" required/>
+          <p class="help-block" ng-show="form.name.$error.required && submitted">
+            A location is required
           </p>
         </div>
 
@@ -79,4 +117,4 @@
     </div>
   </div>
   <hr>
-</div>
+</div> -->

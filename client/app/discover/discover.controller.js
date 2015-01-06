@@ -1,21 +1,27 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('DiscoverCtrl', function ($scope, $rootScope, $http, Auth, Http) {
+  .controller('DiscoverCtrl', function ($scope, $rootScope, $http, $mdToast, $animate, Auth, Http) {
     $scope.getCurrentUser = Auth.getCurrentUser;
 
-  
+    $rootScope.toggleNav = true;
 
     Http.getAllUsers().then(function(data) {
       $scope.standardUsers = data;
     });
 
-    $scope.addAsContact = function (user) {
+    $scope.addAsContact = function(user) {
       var me = $scope.getCurrentUser();
       Http.addAsContact(user).then(function (data) {
         me.contacts.push(user);
         $rootScope.myContacts = me.contacts;
       });
+      $mdToast.show(
+        $mdToast.simple()
+        .content('Added ' + user.name)
+        .position('bottom right')
+        .hideDelay(1500)
+      );
     }
 
     $scope.knownContacts = function(user) {
@@ -39,6 +45,5 @@ angular.module('meshApp')
     Http.getAllThings().then(function(data) {
       $scope.objectives = data.reverse();
     });
-
 
   });

@@ -1,4 +1,27 @@
-<div class="col-md-12">
-This is the objectives view.
-</div>
-{{objective.name}}
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<md-content class="container">
+
+  <div layout="row" class="info">
+    <figure flex="20">
+      <h1>{{ objective.name }}</h1>
+      <p>{{ objective.info }}</p>
+    </figure>
+    <div flex="50" class="discussion">
+      <div class="chat">
+        <p ng-repeat="message in messages track by $index"><span>{{ message.author }}:</span> {{ message.text }}</p>
+      </div>
+      <form name="discussion" class="form" ng-submit="addMessage(discussion)" novalidate>
+        <div class="form-group">
+          <input type="text" name="message" class="form-control" ng-model="message.text" min-length="1" required />
+          <md-button type="submit" class="pull-right">Send</button>
+        </div>
+      </form>
+    </div>
+    <section layout="column" flex="25">
+      <h2>Contributors</h2>
+      <p ng-repeat="contributor in contributors track by $index">{{ contributor.name }}</p>
+    </section>
+  </div>
+
+</md-content>

@@ -1,36 +1,52 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
+<md-content class="discover">
 
-  <header class="col-md-12">
-    <h2>Featured<br>Contributors</h2>
-  </header>
+  <div class="heading">
 
-  <div class="col-md-11">
-    <figure id="recommended">
-      <div class="user" ng-repeat="user in standardUsers | filter: knownContacts">
-        <i class="fa fa-plus-circle" ng-click="addAsContact(user)"></i>
-        <span>
-          {{ user.name }}
-        </span>
-      </div>
-    </figure>
+    <header>
+      <h2>Featured</h2>
+    </header>
+
   </div>
 
-  <header class="col-md-12">
-    <h3>Trending Topics</h3>
-  </header>
+  <div class="container">
 
-  <figure id="objective-card" class="col-md-offset-1 col-md-3" ng-repeat="objective in objectives">
-    <section>
-      <h2><a ng-href="/objectives/{{objective._id}}">{{ objective.name }}</a></h2>
-      <p class="description">
-        {{ objective.info }}
-      </p>
-      <p class="author">
-        By {{ objective.username }}
-      </p>
+    <section class="featured">
+      <div class="user" ng-repeat="user in standardUsers | filter: knownContacts">
+        <span class="name">
+          {{ user.name }}
+        </span>
+        <md-button class="add md-primary" ng-click="addAsContact(user)">add</md-button>
+      </div>
     </section>
-  </figure>
 
-</div>
+  </div>
+
+  <div class="heading">
+
+    <header class="topics">
+      <h3>All</h3>
+      <h3>Picks</h3>
+      <h3>Popular</h3>
+    </header>
+
+  </div>
+
+  <div class="container objectives">
+
+    <md-card class="col-md-offset-1 col-md-3 objective-card" ng-repeat="objective in objectives">
+      <section>
+        <h2><a ng-href="/objectives/{{objective._id}}">{{ objective.name }}</a></h2>
+        <p class="description">
+          {{ objective.info }}
+        </p>
+        <p class="author">
+          By {{ objective.username }}
+        </p>
+      </section>
+    </md-card>
+
+  </div>
+
+</md-content>

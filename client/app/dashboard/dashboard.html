@@ -1,128 +1,135 @@
+
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div layout="row">
+<md-content class="dash">
 
-  <md-card flex="15" id="user">
-    <h3>{{ getCurrentUser().name }}</h3>
-    <p>Telluride, CO</p>
-    </h5>Leader</h5>
-  </md-card>
+  <div layout="row">
 
-  <md-toolbar md-theme="indigo" id="contacts" class="md-tall">
-    <h2>Contacts</h2>
-    <div class="contact" ng-repeat="contact in contacts">
-      <p data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="contact" jqyoui-draggable="{placeholder: 'keep'}">
-        {{ contact.name }}
+    <md-card flex="15" id="user">
+      <h3>{{ getCurrentUser().name }}</h3>
+      <p>{{ getCurrentUser().location.city }}, {{ getCurrentUser().location.country }}</p>
+      </h5>Leader</h5>
+    </md-card>
+
+    <md-toolbar class="contacts" id="contacts">
+      <h2>Classmates</h2>
+      <div class="contacts-grid">
+        <div class="contact" ng-repeat="contact in contacts">
+          <p data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="contact" jqyoui-draggable="{placeholder: 'keep'}">
+            {{ contact.name }}
+          </p>
+          <span ng-click="deleteContact(contact)"><i class="fa fa-trash"></i></span>
+        </div>
+      </div>
+    </md-toolbar>
+
+  </div>
+
+  <div id="broadcast" layout="row" ng-show="objAdd">
+
+    <figure id="invite" data-drop="true" data-jqyoui-options ng-model="invitees" jqyoui-droppable="{multiple:true, stack:true}">
+      <h3>Invite</h3>
+      <p data-drag="false" data-jqyoui-options ng-model="invitees" jqyoui-draggable ng-repeat="invitee in invitees">
+        {{ invitee.name }}  <span ng-click="removeInvitee(invitee)">&times;</span>
       </p>
-      <span ng-click="deleteContact(contact)">&times;</span>
-    </div>
-  </md-toolbar>
+      <p class="hint">*drag and drop contacts to invite</p>
+    </figure>
 
-</div>
+    <form id="objective" name="objective" ng-submit="addObjective(objective)" novalidate>
+      <div class="form-group">
+        <label>Objective</label>
+        <input type="text" name="objective" class="form-control" ng-model="objectiveToAdd" required />
+        <p class="text-danger" ng-show="invalid && submitted">
+          {{ addErrors.objective }}
+        </p>
+      </div>
 
-<div id="broadcast" class="container" ng-show="objAdd">
+      <div class="form-group">
+        <label>Description</label>
+        <textarea type="text" name="descript" class="form-control" ng-model="objDescription" ng-trim="false" maxlength="60" required />
+        <span class="text-danger" ng-show="invalid && submitted">
+          {{ addErrors.descript }}
+        </span>
+        <span>
+          {{ charCount }}
+        </span>
+      </div>
 
-  <figure id="invite" class="col-md-4" data-drop="true" data-jqyoui-options ng-model="invitees" jqyoui-droppable="{multiple:true, stack:true}">
-    <h2>Invite Collaborators</h2>
-    <p data-drag="false" data-jqyoui-options ng-model="invitees" jqyoui-draggable ng-repeat="invitee in invitees">
-      {{ invitee.name }}  <span ng-click="removeInvitee(invitee)">&times;</span>
-    </p>
-    <p class="hint">*drag and drop contacts to invite</p>
-  </figure>
-
-  <form id="objective" class="form col-md-4" name="objective" ng-submit="addObjective(objective)" novalidate>
-    <div class="form-group">
-      <label>Objective</label>
-      <input type="text" name="objective" class="form-control" ng-model="objectiveToAdd" required />
-      <p class="text-danger" ng-show="invalid && submitted">
-        {{ addErrors.objective }}
-      </p>
-    </div>
-
-    <div class="form-group">
-      <label>Description</label>
-      <textarea type="text" name="descript" class="form-control" ng-model="objDescription" ng-trim="false" maxlength="60" required />
-      <span class="text-danger" ng-show="invalid && submitted">
-        {{ addErrors.descript }}
-      </span>
-      <span>
-        {{ charCount }}
-      </span>
-    </div>
-
-    <md-button class="md-primary md-raised" type="submit">Broadcast</md-button>
-    <md-button class="md-warning" type="reset" ng-click="toggleAdd()">Cancel</md-button>
-  </form>
-
-</div>
-
-<div layout="row">
-
-  <md-toolbar md-theme="indigo" class="heading">
-    <div class="md-toolbar-tools">
-      <h1>Your Collaborations</h1>
-      <md-button type="button" class="md-primary md-raised" md-theme="default" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</md-button>
-    </div>
-  </md-toolbar>
-
-</div>
-
-<div id="objectives" class="container">
-
-  <!-- <section id="objectives" class="col-md-10">
-    <h1>Objectives</h1>
-    <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Team Members</th>
-        </tr>
-      </thead>
-      <tr ng-repeat="objective in objectives">
-        <td>
-          <span ng-hide="$index === indexEditing">
-            {{ objective.name }}
-          </span>
-          <input type="text" name="name" ng-show="$index === indexEditing" ng-model="objective.name" />
-        </td>
-        <td>
-          <span ng-hide="$index === indexEditing">
-            {{ objective.info }}
-          </span>
-          <input type="text" name="info" ng-show="$index === indexEditing" ng-model="objective.info" />
-        </td>
-        <td>
-          <span>
-            {{ objective.contributors }}
-          </span>
-          </td>
-        <td>
-          <i class="fa fa-check" ng-show="$index === indexEditing" ng-click="editObjective(objective)"></i>
-          <i class="fa fa-pencil" ng-hide="$index === indexEditing" ng-click="toggleEdit($index)"></i>
-          <i class="fa fa-trash" ng-click="deleteObjective(objective)"></i>
-        </td>
-      </tr>
-    </table>
-  </section> -->
-
-  <md-card id="objective-card" class="col-md-offset-1 col-md-3" ng-repeat="objective in objectives">
-    <div class="controls">
-      <i class="fa fa-check" ng-show="$index === indexEditing" ng-click="editObjective(objective)"></i>
-      <i class="fa fa-pencil" ng-hide="$index === indexEditing" ng-click="toggleEdit($index)"></i>
-      <i class="fa fa-trash" ng-click="deleteObjective(objective)"></i>
-    </div>
-    <section ng-hide="$index === indexEditing">
-      <h2>{{ objective.name }}</h2>
-      <p>
-        {{ objective.info }}
-      </p>
-    </section>
-    <form name="edit" ng-show="$index === indexEditing">
-      <input class="form-control" type="text" name="name" ng-model="objective.name" />
-      <input class="form-control" type="text" name="info" ng-model="objective.info" />
+      <md-button class="md-primary md-raised" type="submit">Broadcast</md-button>
+      <md-button class="md-warning" type="reset" ng-click="toggleAdd()">Cancel</md-button>
     </form>
-  </md-card>
 
-</div>
+  </div>
+
+  <div layout="row">
+
+    <header md-theme="indigo" class="heading">
+      <div class="md-toolbar-tools">
+        <h1>Collaborations</h1>
+        <md-button type="button" class="md-primary md-raised" md-theme="default" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</md-button>
+      </div>
+    </header>
+
+  </div>
+
+  <div class="container objectives">
+
+    <!-- <section id="objectives" class="col-md-10">
+      <h1>Objectives</h1>
+      <button type="button" class="btn btn-default btn-xs" ng-click="toggleAdd()" ng-disabled="objAdd">broadcast new</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Team Members</th>
+          </tr>
+        </thead>
+        <tr ng-repeat="objective in objectives">
+          <td>
+            <span ng-hide="$index === indexEditing">
+              {{ objective.name }}
+            </span>
+            <input type="text" name="name" ng-show="$index === indexEditing" ng-model="objective.name" />
+          </td>
+          <td>
+            <span ng-hide="$index === indexEditing">
+              {{ objective.info }}
+            </span>
+            <input type="text" name="info" ng-show="$index === indexEditing" ng-model="objective.info" />
+          </td>
+          <td>
+            <span>
+              {{ objective.contributors }}
+            </span>
+            </td>
+          <td>
+            <i class="fa fa-check" ng-show="$index === indexEditing" ng-click="editObjective(objective)"></i>
+            <i class="fa fa-pencil" ng-hide="$index === indexEditing" ng-click="toggleEdit($index)"></i>
+            <i class="fa fa-trash" ng-click="deleteObjective(objective)"></i>
+          </td>
+        </tr>
+      </table>
+    </section> -->
+
+    <md-card class="col-md-offset-1 col-md-3 objective-card" ng-repeat="objective in objectives">
+      <div class="controls">
+        <i class="fa fa-check" ng-show="$index === indexEditing" ng-click="editObjective(objective)"></i>
+        <i class="fa fa-pencil" ng-hide="$index === indexEditing" ng-click="toggleEdit($index)"></i>
+        <i class="fa fa-trash" ng-click="deleteObjective(objective)"></i>
+      </div>
+      <section ng-hide="$index === indexEditing">
+        <h2><a ng-href="/objectives/{{objective._id}}">{{ objective.name }}</a></h2>
+        <p>
+          {{ objective.info }}
+        </p>
+      </section>
+      <form name="edit" ng-show="$index === indexEditing">
+        <input class="form-control" type="text" name="name" ng-model="objective.name" />
+        <input class="form-control" type="text" name="info" ng-model="objective.info" />
+      </form>
+    </md-card>
+
+  </div>
+
+</md-content>

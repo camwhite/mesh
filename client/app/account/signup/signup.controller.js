@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('meshApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
+  .controller('SignupCtrl', function ($scope, $rootScope, Auth, $location, $window) {
+    $rootScope.toggleNav = true;
+
     $scope.user = {};
     $scope.errors = {};
 
@@ -12,6 +14,10 @@ angular.module('meshApp')
         Auth.createUser({
           name: $scope.user.name,
           email: $scope.user.email,
+          location: {
+            city: $scope.user.city,
+            country: $scope.user.country
+          },
           password: $scope.user.password
         })
         .then( function() {
