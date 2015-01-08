@@ -13,7 +13,7 @@
   <div class="container">
 
     <section class="featured">
-      <div class="user" ng-repeat="user in standardUsers | filter: knownContacts">
+      <div class="user" ng-repeat="user in featuredUsers track by $index">
         <span class="name">
           {{ user.name }}
         </span>
