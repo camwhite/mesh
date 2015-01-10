@@ -16,22 +16,17 @@ angular.module('meshApp')
     });
 
     var fillFeatured = function() {
-      while($scope.featuredUsers.length <= Math.min($scope.standardUsers.length - myContacts, 14)) {
-        var userIndex = Math.floor(Math.random() * ($scope.standardUsers.length - 1));
-        var found = false;
-        if($scope.knownContacts($scope.standardUsers[userIndex])) {
-          for(var i = 0; i < $scope.featuredUsers.length; i++) {
-            if($scope.featuredUsers[i]._id === $scope.standardUsers[userIndex]._id) {
-              found = true;
-            }
+      var currentContacts = $scope.getCurrentUser().contacts;
+      var featuredUsers = $scope.standardUsers;
+      for (var i = 0; i < featuredUsers.length; i++) {
+        for (var j = 0; j < currentContacts.length; j++) {
+          if (featuredUsers[i]._id === currentContacts[j]._id) {
+            featuredUsers.splice(i,1);
           }
         }
-        if(!found) {
-          $scope.featuredUsers.push($scope.standardUsers[userIndex]);
-          console.log($scope.featuredUsers)
-        }
       }
-    }
+      $scope.featuredUsers = featuredUsers;
+    };
 
     $scope.addAsContact = function(user) {
       var me = $scope.getCurrentUser();
