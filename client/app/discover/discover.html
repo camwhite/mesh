@@ -13,7 +13,7 @@
   <div class="container">
 
     <section class="featured">
-      <div class="user" ng-repeat="user in featuredUsers track by $index">
+      <div class="user" ng-repeat="user in featuredUsers | limitTo:18 track by $index">
         <span class="name">
           {{ user.name }}
         </span>
